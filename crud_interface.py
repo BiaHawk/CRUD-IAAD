@@ -1,9 +1,14 @@
 from tkinter import *
 from tkinter import ttk
 
+from data_helper import DBConnection
+
 
 class CRUDInterface:
     def __init__(self, root):
+         # Instanciando a conexão com o banco.
+        self.banco = DBConnection()
+
         self.root = root
         titlespace = " "
         self.root.title(102 * titlespace + "Conection")
