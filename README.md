@@ -5,4 +5,4 @@
   <img src="./arquitetura.png" />
 </p>
 
-#Uma solução interessante para o projeto proposto pela cadeira. Criado utilizando duas librarys python: tkinter e pymysql
+Uma solução interessante para o projeto proposto pela cadeira. Criado utilizando duas librarys python: tkinter e pymysql
