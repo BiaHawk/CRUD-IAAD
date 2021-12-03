@@ -37,18 +37,61 @@ class CRUDInterface:
         NomeEntidade = StringVar()
         ValorPrevisto = StringVar()
         
-        #funções dos botões e conexão com o BD
-        def ADD():
+        #funções dos botões
+        def Add():
             if Escola.get() == "" or EscolaID.get() == "" or NomeEntidade.get() == "" or ValorPrevisto.get() == "":
                 tkinter.messagebox.showerror("Connection", "Valores não existentes no DB")
             else:
-                sqlconnection = pymysql.connect(host ="", user = "", password = "", database = 'mydb')
+                sqlconnection = pymysql.connect(host ="localhost", user = "root", password = "", database = 'mydb')
                 nav = sqlconnection.cursor()
                 nav.execute("insert into valor_investido (nome_escola, cod_escola, nome_eex, valor_previsto) values(%s, %s, %s, %s)",(Escola.get(), EscolaID.get(), NomeEntidade.get(), ValorPrevisto.get()))
                 sqlconnection.commit()
                 sqlconnection.close()
                 tkinter.messagebox.showinfo("Connection", "Sucesso")
-                
+
+        def showData():
+            sqlconnection = pymysql.connect(host ="localhost", user = "root", password = "", database = 'mydb')
+            nav = sqlconnection.cursor()
+            nav.execute("select nome_escola, cod_escola, nome_eex, valor_previsto from valor_investido")
+            rows = nav.fetchall()
+            for row in rows:
+                print(row)
+                self.TableEscola.insert("",END, values=row)
+            sqlconnection.commit()
+            sqlconnection.close()
+            tkinter.messagebox.showinfo("Display", "Sucesso")
+
+        def Search():
+            sqlconnection = pymysql.connect(host ="", user = "", password = "", database = 'mydb')
+            nav = sqlconnection.cursor()
+            nav.execute("select nome_escola, cod_escola, nome_eex, valor_previsto from mydb.valor_investido where cod_escola = %s", EscolaID.get())
+            rows = nav.fetchall()
+            for row in rows:
+                print(row)
+                self.TableEscola.insert("",END, values=row)
+            sqlconnection.commit()
+            sqlconnection.close()
+
+        def Delete():
+            sqlconnection = pymysql.connect(host ="", user = "", password = "", database = 'mydb')
+            nav = sqlconnection.cursor()
+            nav.execute("delete from valor_investido where cod_escola=%s", EscolaID.get())
+            sqlconnection.commit()
+            sqlconnection.close()
+            tkinter.messagebox.showinfo("Connection", "Sucesso na operação de Delete")
+        
+        def Update():
+            try:
+                sqlconnection = pymysql.connect(host ="", user = "", password = "", database = 'mydb')
+                nav = sqlconnection.cursor()
+                nav.execute("call update_escola (%s,%s)" ,(Escola.get(), EscolaID.get()))
+                sqlconnection.commit()
+                sqlconnection.close()
+                tkinter.messagebox.showinfo("Connection", "Sucesso na operação de Update")
+            except Exception as e:
+                print("Exeception occured:{}".format(e))
+
+                            
         #Layout das entradas
         self.NomeEscola= Label(LeftFrameY, font=('Cambria', 12, 'bold'), text= 'Nome da Escola', bd=7)
         self.NomeEscola.grid(row=0, column=0, sticky=W, padx =5)
@@ -88,13 +131,14 @@ class CRUDInterface:
         self.TableEscola.column('id', width=70)
         self.TableEscola.column('value', width=70)
         self.TableEscola.pack(fill= BOTH, expand=1)
+
         
         #Botões
-        self.Display = Button(RightFrameYt, font=('Cambria', 16, 'bold'), text= 'DISPLAY', bd=4, pady=1, padx=24, width = 8, height = 2,).grid(row=0,column =0, padx=1)
-        self.Search = Button(RightFrameYt, font=('Cambria', 16, 'bold'), text= 'SEARCH', bd=4, pady=1, padx=24, width = 8, height = 2,).grid(row=1,column =0, padx=1)
-        self.Add = Button(RightFrameYt, font=('Cambria', 16, 'bold'), text= 'ADD', bd=4, pady=1, padx=24, width = 8, height = 2, command=ADD).grid(row=2,column =0, padx=1)
-        self.Update = Button(RightFrameYt, font=('Cambria', 16, 'bold'), text= 'UPDATE', bd=4, pady=1, padx=24, width = 8, height = 2,).grid(row=3,column =0, padx=1)
-        self.Delete = Button(RightFrameYt, font=('Cambria', 16, 'bold'), text= 'DELETE', bd=4, pady=1, padx=24, width = 8, height = 2,).grid(row=4,column =0, padx=1)
+        self.Display = Button(RightFrameYt, font=('Cambria', 16, 'bold'), text= 'DISPLAY', bd=4, pady=1, padx=24, width = 8, height = 2, command = showData).grid(row=0,column =0, padx=1)
+        self.Search = Button(RightFrameYt, font=('Cambria', 16, 'bold'), text= 'SEARCH', bd=4, pady=1, padx=24, width = 8, height = 2, command= Search).grid(row=1,column =0, padx=1)
+        self.Add = Button(RightFrameYt, font=('Cambria', 16, 'bold'), text= 'ADD', bd=4, pady=1, padx=24, width = 8, height = 2, command=Add).grid(row=2,column =0, padx=1)
+        self.Update = Button(RightFrameYt, font=('Cambria', 16, 'bold'), text= 'UPDATE', bd=4, pady=1, padx=24, width = 8, height = 2, command= Update).grid(row=3,column =0, padx=1)
+        self.Delete = Button(RightFrameYt, font=('Cambria', 16, 'bold'), text= 'DELETE', bd=4, pady=1, padx=24, width = 8, height = 2, command=Delete).grid(row=4,column =0, padx=1)
 
 
 if __name__=='__main__':
