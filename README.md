@@ -15,13 +15,16 @@ As instruções abaixo mostram como fazer a instalação:
 1.Baixe o arquivo get-pip.py para uma pasta do seu computador.
 
 2. Abra um terminal na pasta onde está o arquivo e execute o seguinte comando: 
-```python get-pip.py
+```
+python get-pip.py
 ```
 3. Caso você queira consultar a versão, basta digitar:
-```pip --version
+```
+pip --version
 ```
 Com o pip pronto, é só seguir para a instalação da biblioteca pymysql. Para isto, use:
-```pip install pymysql
+```
+pip install pymysql
 ```
 #Utilização das bibliotecas
 
