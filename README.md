@@ -40,7 +40,11 @@ import pymysql
 ### Especificações do projeto:
 
 Linguagem: Python
+
 Versão: 3.8
+
 Bibliotecas: Tkinter e pymysql
+
 SGBD: MySQL
+
 Ferramenta visual do SGBD: Workbench
