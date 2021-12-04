@@ -7,7 +7,7 @@
 
 Uma solução interessante para o projeto proposto pela cadeira. Criado utilizando duas librarys python: tkinter e pymysql.
 
-#Configuração do ambiente
+# Configuração do ambiente
 
 Para utilizar o pymysql é necessário ter o pip, que é um sistema de gerenciamento de pacotes usado para instalar e gerenciar pacotes no Python. 
 As instruções abaixo mostram como fazer a instalação:
@@ -26,7 +26,7 @@ Com o pip pronto, é só seguir para a instalação da biblioteca pymysql. Para 
 ```
 pip install pymysql
 ```
-#Utilização das bibliotecas
+# Utilização das bibliotecas
 
 Para utilizar as bibliotecas, fizemos o import como mostrado a seguir:
 ```
@@ -37,7 +37,8 @@ import pymysql
 ```
 
 
-#Especificações do projeto:
+# Especificações do projeto:
+
 Linguagem: Python
 Versão: 3.8
 Bibliotecas: Tkinter e pymysql
